@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html ng-app="myApp" lang="en-US">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+
+<style>
+  input.ng-invalid {
+    background-color: lightblue;
+  }
+</style>
+
+<body>
+
+<div ng-controller="myController" ng-init="myArr=[1,2,3]; mySwitch=true">
+  <p>First name: <input type="text" ng-model="firstName"></p>
+  <p>Last name: <input type="text" ng-model="lastName"></p>
+
+  <h1>{{1 | currency}}</h1>
+
+  <button ng-click="changeName()">Change to Fred Flintstone</button>
+
+  <p>{{myArr[0] + myArr[1] + myArr[2]}}</p>
+
+  <ul>
+    <li ng-repeat="fav in favs">
+      {{fav}}
+    </li>
+  </ul>
+
+  <ul>
+    <li ng-repeat="(key, value) in obj">
+      {{key}}: {{value}}
+    </li>
+  </ul>
+
+  <p my-test-directive></p>
+  <p class="my-test-directive"></p>
+  <my-test-directive></my-test-directive>
+  <!-- directive: my-test-directive -->
+
+
+  <form name="myForm">
+    <input type="email" name="myAddress" ng-model="email">
+    <span ng-show="myForm.myAddress.$error.email">Not a valid e-mail address</span>
+
+    <p>Status</p>
+    Valid? {{myForm.myAddress.$valid}}<br>
+    Dirty? {{myForm.myAddress.$dirty}}<br>
+    Touched? {{myForm.myAddress.$touched}}
+  </form>
+
+
+  <p>Click the column headers to sort!</p>
+  <table>
+    <tr>
+      <th ng-click="itemsOrder='letter'">Letter</th>
+      <th ng-click="itemsOrder='number'">Number</th>
+    </tr>
+    <tr ng-repeat="item in items | orderBy: itemsOrder">
+      <td>{{item.letter}}</td>
+      <td>{{item.number}}</td>
+    </tr>
+  </table>
+
+  <p>{{myUrl}}</p>
+
+  <p>QA API Status {{apiStatus}}</p>
+
+  <select ng-model="selectedName" ng-options="key for (key, value) in obj">
+  </select>
+
+  <p>
+    <input type="checkbox" ng-model="mySwitch">Button
+  </p>
+
+  <p>
+    <button ng-disabled="mySwitch">Click Me!</button>
+  </p>
+
+  <p>
+    mySwitch is {{ mySwitch }}
+  </p>
+
+  <p ng-show="mySwitch">
+    I'm visible when mySwitch is true.
+  </p>
+
+  <p ng-hide="mySwitch">
+    I'm hidden when mySwitch is true.
+  </p>
+
+  <div ng-include="'external.html'"></div>
+</div>
+
+<h1>Menu</h1>
+<ul ng-controller="myMenuController">
+  <li ng-repeat="(path, name) in menuItems">
+    <a href="{{path}}">{{name}}</a>
+  </li>
+</ul>
+
+<div ng-view></div>
+
+<script src="myController.js"></script>
+
+</body>
+</html>
